@@ -4,7 +4,7 @@
 // @copyright   Mario Benito, 2021
 // @license     Lesser Gnu Public License, version 2.1
 // @homepage	https://github.com/Maberi/planets.nu
-// @downloadURL https://...
+// @downloadURL https://greasyfork.org/es/scripts/421380-horwasp-mining
 // @description Adds mining info for Horwasp race planets and allocation screen
 // @namespace   maberi/planets.nu
 // @include     https://planets.nu/*
