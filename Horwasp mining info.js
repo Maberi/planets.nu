@@ -11,7 +11,7 @@
 // @include     https://*.planets.nu/*
 // @include     http://planets.nu/*
 // @include     http://*.planets.nu/*
-// @version     1.1
+// @version     1.11
 // @grant       none
 // ==/UserScript==
 
@@ -45,7 +45,7 @@ horwaspMining.loadResources = function() {
     var html = "";
 
     var mines = planet.mines;
-    if (vgap.player.raceid == 12) mines = Math.ceil(Math.sqrt(planet.clans * planet.targetmines / 100 * (Math.min(1, planet.burrowsize / planet.clans) * 0.5 + 0.5)));
+    if (vgap.player.raceid == 12) mines = Math.ceil(Math.sqrt(planet.clans * planet.targetmines / 100 * (vgap.settings.burrowsimprovemining ? (Math.min(1, planet.burrowsize / planet.clans) * 0.5 + 0.5) : 0.7)));
 
     if (vgap.gameUsesFuel())
         html += "<div class='lval neu'><b>Neutronium</b>" + gsv(planet.neutronium) + "<span><div style='color:" + vgap.densityToColor(planet.densityneutronium) + ";'>" + neu + "</div><span>" + (mines <= 0 ? "(" + gsv(planet.densityneutronium) + "%)" : vgap.miningText(planet, planet.groundneutronium, planet.densityneutronium, mines)) + "</span></span ></div > ";
@@ -62,7 +62,7 @@ horwaspMining.loadResources = function() {
 }
 
 horwaspMining.planetMiningAbility = function(planet) {
-    var mines = Math.ceil(Math.sqrt(planet.clans * planet.targetmines / 100 * (Math.min(1, planet.burrowsize / planet.clans) * 0.5 + 0.5)));
+    var mines = Math.ceil(Math.sqrt(planet.clans * planet.targetmines / 100 * (vgap.settings.burrowsimprovemining ? (Math.min(1, planet.burrowsize / planet.clans) * 0.5 + 0.5) : 0.7)));
 
     return "Neutronium " + vgap.miningText(planet, planet.groundneutronium, planet.densityneutronium, mines, true) + "<br/>" +
            "Duranium " + vgap.miningText(planet, planet.groundduranium, planet.densityduranium, mines, true) + "<br/>" +
