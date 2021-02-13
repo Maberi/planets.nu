@@ -11,7 +11,7 @@
 // @include     https://*.planets.nu/*
 // @include     http://planets.nu/*
 // @include     http://*.planets.nu/*
-// @version     1.11
+// @version     1.13
 // @grant       none
 // ==/UserScript==
 
@@ -25,6 +25,13 @@ var horwaspMining = function() {};
 
 vgap.registerPlugin(horwaspMining, name);
 console.log(name + " v"+version+" planets.nu plugin registered");
+
+horwaspMining.minesFor = function(planet) {
+    var miningClans = planet.clans * planet.targetmines / 100;
+    var burrowSize = planet.burrowsize;
+
+    return Math.ceil(Math.sqrt(miningClans * (vgap.settings.burrowsimprovemining ? (Math.min(1, burrowSize / planet.clans) * (vgap.homeworld.id == planet.id ? 1 + Math.min(1, burrowSize / planet.clans) / 2 : 1) + 0.49) : 0.7)));
+}
 
 horwaspMining.loadResources = function() {
     var planet = this.planet;
@@ -45,7 +52,7 @@ horwaspMining.loadResources = function() {
     var html = "";
 
     var mines = planet.mines;
-    if (vgap.player.raceid == 12) mines = Math.ceil(Math.sqrt(planet.clans * planet.targetmines / 100 * (vgap.settings.burrowsimprovemining ? (Math.min(1, planet.burrowsize / planet.clans) * 0.5 + 0.5) : 0.7)));
+    if (vgap.player.raceid == 12) mines = horwaspMining.minesFor(planet);
 
     if (vgap.gameUsesFuel())
         html += "<div class='lval neu'><b>Neutronium</b>" + gsv(planet.neutronium) + "<span><div style='color:" + vgap.densityToColor(planet.densityneutronium) + ";'>" + neu + "</div><span>" + (mines <= 0 ? "(" + gsv(planet.densityneutronium) + "%)" : vgap.miningText(planet, planet.groundneutronium, planet.densityneutronium, mines)) + "</span></span ></div > ";
@@ -62,7 +69,7 @@ horwaspMining.loadResources = function() {
 }
 
 horwaspMining.planetMiningAbility = function(planet) {
-    var mines = Math.ceil(Math.sqrt(planet.clans * planet.targetmines / 100 * (vgap.settings.burrowsimprovemining ? (Math.min(1, planet.burrowsize / planet.clans) * 0.5 + 0.5) : 0.7)));
+    var mines = horwaspMining.minesFor(planet);
 
     return "Neutronium " + vgap.miningText(planet, planet.groundneutronium, planet.densityneutronium, mines, true) + "<br/>" +
            "Duranium " + vgap.miningText(planet, planet.groundduranium, planet.densityduranium, mines, true) + "<br/>" +
