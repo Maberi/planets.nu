@@ -10,7 +10,7 @@
 // @include         http://*.planets.nu/*
 // @include         https://*.planets.nu/*
 // @require         https://chmeee.org/ext/planets.nu/FleetManagement.user.js
-// @version			0.6
+// @version			0.7
 // @grant           none
 // ==/UserScript==
 
@@ -26,6 +26,7 @@
 //v0.4    Optimised transfer() code
 //v0.5    Horwasp fixes
 //v0.6    Adaptation to UI v4
+//v0.7    Megacredits transfer added
 
 
 //To-do:
@@ -33,7 +34,7 @@
 //   Ammo transfer
 
 var name = "Cross beam";
-var version = "0.6";
+var version = "0.7";
 
 var fleet = vgap.plugins["Fleet Management"];
 
@@ -181,6 +182,7 @@ function crossBeam(viaShipID, toShipID, fromPlanetID) {
         fromPlanet.duranium+= viaShip.transferduranium;
         fromPlanet.tritanium+= viaShip.transfertritanium;
         fromPlanet.molybdenum+= viaShip.transfermolybdenum;
+        fromPlanet.megacredits+= viaShip.transfermegacredits;
         fromPlanet.supplies+= viaShip.transfersupplies;
         fromPlanet.clans+= viaShip.transferclans;
 
@@ -219,10 +221,13 @@ function crossBeam(viaShipID, toShipID, fromPlanetID) {
     html += "<td></td><td><div id='TritaniumTransfer'></div></td>";
     html += "<td class='TransferVal'>" + viaShip.transfertritanium + "</td><td class='valsup'></td></tr>";
 
-
     html += "<tr><td>Molybdenum: </td><td class='TransferVal'>" + fromPlanet.molybdenum + "</td>";
     html += "<td></td><td><div id='MolybdenumTransfer'></div></td>";
     html += "<td class='TransferVal'>" + viaShip.transfermolybdenum + "</td><td class='valsup'></td></tr>";
+
+    html += "<tr><td>Megacredits: </td><td class='TransferVal'>" + fromPlanet.megacredits + "</td>";
+    html += "<td></td><td><div id='MegacreditsTransfer'></div></td>";
+    html += "<td class='TransferVal'>" + viaShip.transfermegacredits + "</td><td class='valsup'></td></tr>";
 
     if (vgap.player.raceid !== 12) {
         html += "<tr><td>Supplies: </td><td class='TransferVal'>" + fromPlanet.supplies + "</td>";
@@ -254,6 +259,7 @@ function crossBeam(viaShipID, toShipID, fromPlanetID) {
     $("#DuraniumTransfer").leftRight(function (change) { transfer("duranium", change, viaShip, toShip, fromPlanet); }, 1000);
     $("#TritaniumTransfer").leftRight(function (change) { transfer("tritanium", change, viaShip, toShip, fromPlanet); }, 1000);
     $("#MolybdenumTransfer").leftRight(function (change) { transfer("molybdenum", change, viaShip, toShip, fromPlanet); }, 1000);
+    $("#MegacreditsTransfer").leftRight(function (change) { transfer("megacredits", change, viaShip, toShip, fromPlanet); }, 1000);
     $("#SuppliesTransfer").leftRight(function (change) { transfer("supplies", change, viaShip, toShip, fromPlanet); }, 1000);
     $("#ClansTransfer").leftRight(function (change) { transfer("clans", change, viaShip, toShip, fromPlanet); }, 1000);
 
