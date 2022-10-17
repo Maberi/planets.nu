@@ -5,12 +5,14 @@
 // @description     As for any foreing transfer, only one final target is allowed.
 // @author			Singularity; Maberi
 // @namespace       singularity/planets.nu
+// @homepage		https://github.com/Maberi/planets.nu
 // @include         http://planets.nu/*
 // @include         https://planets.nu/*
 // @include         http://*.planets.nu/*
 // @include         https://*.planets.nu/*
 // @require         https://chmeee.org/ext/planets.nu/FleetManagement.user.js
-// @version			0.7
+// @version			0.71
+// @license			MIT
 // @grant           none
 // ==/UserScript==
 
@@ -27,7 +29,7 @@
 //v0.5    Horwasp fixes
 //v0.6    Adaptation to UI v4
 //v0.7    Megacredits transfer added
-
+//v0.71	  Homepage and license added
 
 //To-do:
 //   Toggle overload beam on/off??
